@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>{Title}{block:SearchPage}, {lang:Search results for SearchQuery}{/block:SearchPage}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
+  {block:Description}<meta name="description" content="{MetaDescription}" />{/block:Description}
+  <link rel="shortcut icon" href="{Favicon}" />
+  <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+  <link rel="alternate" type="application/rss+xml" href="{RSS}" />
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    html, body { margin: 0; padding: 0; }
+    body { font: 14px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/eT2mjtc0f/bg.jpg') no-repeat center top; min-width: 980px; }
+    a { color: #74BBA7; text-decoration: none; }
+    a.button { background: #74BBA7; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
+    a.button:hover { background: #89e5cb; }
+    .container { width: 920px; margin: 0 auto; overflow: hidden; }
+    .pull-right { float: right; }
+    /* #top-bar */
+    #top-bar { background: #000; overflow: hidden; }
+    #social { float: right; padding-right: 15px }
+    #social iframe { float: left; border:none; margin: 5px; height:21px; }
+    #social a { display: block; float: left; margin: 5px; height: 24px; overflow: hidden }
+    #tumblr_controls { display: none; }
+    /* #nav-bar */
+    #nav-bar { background: #000; padding: 25px 0; margin-top: 330px; }
+    #nav-bar a.title { float: left; font-size: 16px; color: #fff; padding: 8px 20px; }
+    ul.nav { float: right; margin: 0; padding: 0; }
+    ul.nav li { display: block; float: left; list-style: none; margin: 0; padding: 0; }
+    ul.nav a { display: block; float: left; font-size: 18px; font-weight: 600; padding: 16px 20px; text-transform: uppercase; }
+    ul.nav a.active { color: #fff; }
+    /* #content */
+    h2 { padding: 20px; margin: 0; line-height: 1.2; font-weight: normal; font-size: 24px }
+    img { max-width: 100%; }
+    /* #content > #posts */
+    #posts { float: right; width: 540px; background: rgba(255,255,255,0.12); margin: 30px 0; }
+    #posts-header { overflow: hidden; }
+    #posts-header h2 { float: left; }
+    #posts-header .button { float: right; margin: 14px 20px 0 0; }
+    .post { padding: 20px; border-top: 2px solid #000; }
+    .post:first-child { border-top: none; }
+    .post .title { font-size: 24px; line-height: 1.2; margin: 0; }
+    .post .title p { margin: 0; }
+    .post .body { margin-top: 20px; }
+    /* #content > #sidebar */
+    #sidebar { float: left; width: 350px; margin: 30px 0; }
+    /* #content > #sidebar > #events */
+    #events { background: rgba(255,255,255,0.12); margin-bottom: 30px }
+    .event { padding: 20px; line-height: 1.0; border-top: 2px solid #000; overflow: hidden; }
+    .event-date { float: left; text-align: center; width: 40px; }
+    .event-date-day { display: block; font-size: 24px; }
+    .event-date-month { padding-top: 5px; }
+    .event-title    { margin-left: 40px; padding-left: 20px; font-size: 24px; }
+    .event-location { margin-left: 40px; padding-left: 20px; padding-top: 5px; }
+    /* #content > #sidebar > #ad */
+    #ad { background: rgba(255,255,255,0.12); margin-bottom: 30px }
+    /* #footer */
+    #footer { background: #1E2020; }
+    #search { padding: 20px; }
+    #contacts { padding: 20px; }
+    #copyright { padding: 20px; }
+  </style>
+  <style type="text/css">{CustomCSS}</style>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      // Select Active nav item
+      $("ul.nav a[href='"+ window.location.pathname +"']").addClass("active");
+
+      // YouTube Videos
+      if (window.location.pathname == "/videos") {
+        var videoUploadsURL = 'http://gdata.youtube.com/feeds/base/users/astronoutTV/uploads?alt=json&v=2&orderby=published&callback=?';
+        $.getJSON(videoUploadsURL, function(data) {
+          $("#posts .body").remove();
+          var items = data.feed.entry;
+          $.each(data.feed.entry, function(i, item) {
+            var item = items[i];
+            var feedTitle = item.title.$t;
+            var feedURL = item.link[1].href;
+            var fragments = feedURL.split("/");
+            var videoID = fragments[fragments.length - 1].replace("?v=2", "");
+            var videoURL = "http://www.youtube.com/watch?v="+ videoID;
+            var embedURL = "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent";
+            $("#posts").append(
+              "<div class='post'>" +
+                "<div class='title'>" +
+                  "<a href='" + videoURL + "'>" + feedTitle + "</a>" +
+                "</div>" +
+                "<div class='body'>" +
+                  "<iframe width='500' height='281' src='" +
+                    embedURL +
+                    "' frameborder='0' allowfullscreen></iframe>" +
+                "</div>" +
+              "</div>"
+            );
+          });
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <div id="top-bar">
+    <div class="container">
+      <div id="social">
+        <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fastronout.lv%2F&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=dark&amp;font=arial&amp;height=21&amp;appId=348126495249042" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+        <a href="http://www.youtube.com/user/astronoutTV" target="_blank"><img src="http://static.tumblr.com/qtngqf7/4sumjtl43/icon-youtube.png" alt="YouTube" /></a>
+        <a href="http://muzika.draugiem.lv/astronout" target="_blank"><img src="http://static.tumblr.com/qtngqf7/zhKmjtl2x/icon-draugiem.png" alt="Draugiem" /></a>
+        <a href="http://www.facebook.com/astronout" target="_blank"><img src="http://static.tumblr.com/qtngqf7/hBKmjtl3c/icon-facebook.png" alt="Facebook" /></a>
+        <a href="https://twitter.com/#!/astronout_lv" target="_blank"><img src="http://static.tumblr.com/qtngqf7/hb5mjtl3p/icon-twitter.png" alt="Twitter" /></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="nav-bar">
+    <div class="container">
+      <a href="/" class="title">
+        <img src="http://static.tumblr.com/qtngqf7/msQmjtc0r/logo.png" alt="Astro'n'out" />
+      </a>
+      <ul class="nav">
+        <li><a href="/"{block:IndexPage} class="active"{/block:IndexPage}>Jaunumi</a></li>
+        {block:HasPages}
+          {block:Pages}
+            <li><a href="{URL}">{Label}</a></li>
+          {/block:Pages}
+        {/block:HasPages}
+        <li><a href="#contacts">Kontakti</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="content">
+    <div class="container">
+      <div id="posts">
+        {block:IndexPage}
+          <div id="posts-header">
+            <h2>Jaunumi</h2>
+            <a href="http://eepurl.com/oLQmP" class="button">Pieteikties jaunumiem e-pastā</a>
+          </div>
+        {/block:IndexPage}
+
+        {block:SearchPage}
+          {block:SearchResults}
+            <h2>{lang:SearchResultCount results for SearchQuery 2}</h2>
+          {/block:SearchResults}
+
+          {block:NoSearchResults}
+            <h2>{lang:No search results for SearchQuery 2}</h2>
+          {/block:NoSearchResults}
+        {/block:SearchPage}
+
+        {block:Posts}
+          <div class="post">
+
+            {block:Photo}
+              {block:Caption}<div class="title">{Caption}</div>{/block:Caption}
+              <div class="body">{LinkOpenTag}<img src="{PhotoURL-500}" alt="{PhotoAlt}" />{LinkCloseTag}</div>
+            {/block:Photo}
+
+            {block:Video}
+              {block:Caption}<div class="title">{Caption}</div>{/block:Caption}
+              <div class="body">{Video-500}</div>
+            {/block:Video}
+
+            {block:Text}
+              {block:Title}<div class="title">{Title}</div>{/block:Title}
+              <div class="body">{Body}</div>
+            {/block:Text}
+
+            {block:Link}
+              <div class="title"><a href="{URL}" {Target}>{Name} &raquo;</a></div>
+              {block:Description}<div class="body">{Description}</div>{/block:Description}
+            {/block:Link}
+
+            {block:Date}
+              <a href="{Permalink}">
+                <div class="footer for_permalink">
+                  <div class="date">
+                    {block:Reblog}
+                      {lang:Reblogged TimeAgo from ReblogParentName} {block:RebloggedFromReblog}(<span style="text-transform:lowercase;">{lang:Originally from ReblogRootName}</span>){/block:RebloggedFromReblog}
+                    {/block:Reblog}
+
+                    {block:NotReblog}
+                      {lang:Posted TimeAgo from source}
+                    {/block:NotReblog}
+                  </div>
+                  <div class="notes">{block:NoteCount}{NoteCountWithLabel}{/block:NoteCount}</div>
+                </div>
+              </a>
+            {/block:Date}
+
+            <div class="footer {block:ContentSource}with_source_url{/block:ContentSource}" style="
+              display:none;
+              {block:IfShowTags}{block:HasTags}display:block;{/block:HasTags}{/block:IfShowTags}
+              {block:ContentSource}display:block;{/block:ContentSource}
+            ">
+              {block:IfShowTags}
+                {block:HasTags}<div class="tags">{lang:Tagged}: {block:Tags}<a href="{TagURL}">{Tag}</a><span class="tag-commas">, </span>{/block:Tags}.</div>{/block:HasTags}
+              {/block:IfShowTags}
+
+              {block:ContentSource}
+                <a href="{SourceURL}" class="source_url">
+                  {lang:Source}:
+                  {block:SourceLogo}<img src="{BlackLogoURL}" width="{LogoWidth}" height="{LogoHeight}" alt="{SourceTitle}" />{/block:SourceLogo}
+                  {block:NoSourceLogo}{SourceTitle}{/block:NoSourceLogo}
+                </a>
+              {/block:ContentSource}
+            </div>
+
+            {block:PostNotes}<div class="notes">{PostNotes}</div>{/block:PostNotes}
+
+          </div>
+        {/block:Posts}
+
+        {block:Pagination}
+          <div id="navigation" {block:IfEnableJumpPagination}class="jump_pagination"{/block:IfEnableJumpPagination}>
+            {block:PreviousPage}<a href="{PreviousPage}">&larr; {lang:Previous}</a>{/block:PreviousPage}
+
+            {block:IfEnableJumpPagination}
+              {block:JumpPagination length="5"}
+                {block:CurrentPage}
+                  <span class="current_page">{PageNumber}</span>
+                {/block:CurrentPage}
+
+                {block:JumpPage}
+                  <a class="jump_page" href="{URL}">{PageNumber}</a>
+                {/block:JumpPage}
+
+              {/block:JumpPagination}
+            {/block:IfEnableJumpPagination}
+
+            {block:NextPage}<a href="{NextPage}">{lang:Next page} &rarr;</a>{/block:NextPage}
+          </div>
+        {/block:Pagination}
+      </div>
+
+      <div id="sidebar">
+        <div id="events">
+          <h2>Koncerti</h2>
+          <div class="event">
+            <div class="event-date">
+              <div class="event-date-day">16</div>
+              <div class="event-date-month">MAR</div>
+            </div>
+            <div class="event-title"><a href="http://jamesonuzsauc.lv/">Sv. Patrika dienas ballīte</a></div>
+            <div class="event-location">Dzelzceļa muzejs</div>
+          </div>
+          <div class="event">
+            <div class="event-date">
+              <div class="event-date-day">06</div>
+              <div class="event-date-month">APR</div>
+            </div>
+            <div class="event-title"><a href="http://www.tallinnmusicweek.ee/">Tallin music week</a></div>
+            <div class="event-location">Rockcafe.ee</div>
+          </div>
+          <div class="event">
+            <div class="event-date">
+              <div class="event-date-day">18</div>
+              <div class="event-date-month">MAY</div>
+            </div>
+            <div class="event-title">Raunas pilsētas svētki</div>
+            <div class="event-location">Rauna</div>
+          </div>
+        </div>
+
+        <div id="ad">
+          <a href="https://itunes.apple.com/lv/album/lauvas/id606983943">
+            <img src="http://sphotos-g.ak.fbcdn.net/hphotos-ak-ash4/602405_511048738907144_251058236_n.jpg" alt="Astro'n'out - Lauvas" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <div id="search">
+        <form action="/search" method="get" id="search-form">
+          <input type="hidden" name="t" value="{Name}" />
+          <input type="hidden" name="scope" value="all_of_tumblr" />
+          <input type="text" name="q" class="query" value="{SearchQuery}" />
+          <input type="submit" value="{lang:Search}" class="submit" />
+          <div class="clear"></div>
+        </form>
+      </div>
+      <div id="contacts">
+        <p>MGMT: <a href="mailto:info@astronout.lv">info@astronout.lv</a></p>
+      </div>
+      <div id="copyright">
+        <p>&copy; {CopyrightYears} <a href="http://www.tumblr.com">{lang:Powered by Tumblr}</a></p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
