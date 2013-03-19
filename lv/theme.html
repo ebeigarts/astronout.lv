@@ -66,25 +66,27 @@
   <script id="event-template" type="text/html">
     <div class="event">
       <div class="event-date">
-        <div class="event-date-day">{{day}}</div>
-        <div class="event-date-month">{{month}}</div>
+        <div class="event-date-day">[[day]]</div>
+        <div class="event-date-month">[[month]]</div>
       </div>
-      <div class="event-title"><a href="{{url}}">{{title}}</a></div>
-      <div class="event-location">{{location}}</div>
+      <div class="event-title"><a href="[[url]]">[[title]]</a></div>
+      <div class="event-location">[[location]]</div>
     </div>
   </script>
   <script id="video-template" type="text/html">
     <div class="post">
       <div class="title">
-        <a href="{{videoURL}}">{{feedTitle}}</a>
+        <a href="[[videoURL]]">[[feedTitle]]</a>
       </div>
       <div class="body">
-        <iframe width="500" height="281" src="{{embedURL}}" frameborder="0" allowfullscreen></iframe>
+        <iframe width="500" height="281" src="[[embedURL]]" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
   </script>
   <script type="text/javascript">
     $(function() {
+      Mustache.tags = ["[[", "]]"]; // tumblr doesnt like mustaches :)
+
       // Select Active nav item
       $("ul.nav a[href='"+ window.location.pathname +"']").addClass("active");
 
