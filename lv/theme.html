@@ -62,37 +62,72 @@
   </style>
   <style type="text/css">{CustomCSS}</style>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+  <script id="event-template" type="text/html">
+    <div class="event">
+      <div class="event-date">
+        <div class="event-date-day">{{day}}</div>
+        <div class="event-date-month">{{month}}</div>
+      </div>
+      <div class="event-title"><a href="{{url}}">{{title}}</a></div>
+      <div class="event-location">{{location}}</div>
+    </div>
+  </script>
+  <script id="video-template" type="text/html">
+    <div class="post">
+      <div class="title">
+        <a href="{{videoURL}}">{{feedTitle}}</a>
+      </div>
+      <div class="body">
+        <iframe width="500" height="281" src="{{embedURL}}" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </script>
   <script type="text/javascript">
     $(function() {
       // Select Active nav item
       $("ul.nav a[href='"+ window.location.pathname +"']").addClass("active");
 
+      // Bands in Town Events
+      var url = "http://api.bandsintown.com/artists/Astro'n'out/events.json?api_version=2.0&app_id=astronout.lv&callback=?";
+      var template = $('#event-template').html();
+      var monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      $.getJSON(url, function(data) {
+        $.each(data, function(i, event) {
+          var date = new Date(event.datetime);
+          var day = date.getUTCDay();
+          if (day < 10) day = "0" + day;
+          var view = {
+            day: day,
+            month: monthNames[date.getUTCMonth()],
+            url: event.facebook_rsvp_url,
+            title: event.venue.name,
+            location: [event.venue.city, event.venue.country].join(", ")
+          };
+          var html = Mustache.render(template, view);
+          $("#events").append(html);
+        });
+      });
+
       // YouTube Videos
       if (window.location.pathname == "/videos") {
         var videoUploadsURL = 'http://gdata.youtube.com/feeds/base/users/astronoutTV/uploads?alt=json&v=2&orderby=published&callback=?';
+        var template = $('#video-template').html();
         $.getJSON(videoUploadsURL, function(data) {
           $("#posts .body").remove();
           var items = data.feed.entry;
           $.each(data.feed.entry, function(i, item) {
             var item = items[i];
-            var feedTitle = item.title.$t;
             var feedURL = item.link[1].href;
             var fragments = feedURL.split("/");
             var videoID = fragments[fragments.length - 1].replace("?v=2", "");
-            var videoURL = "http://www.youtube.com/watch?v="+ videoID;
-            var embedURL = "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent";
-            $("#posts").append(
-              "<div class='post'>" +
-                "<div class='title'>" +
-                  "<a href='" + videoURL + "'>" + feedTitle + "</a>" +
-                "</div>" +
-                "<div class='body'>" +
-                  "<iframe width='500' height='281' src='" +
-                    embedURL +
-                    "' frameborder='0' allowfullscreen></iframe>" +
-                "</div>" +
-              "</div>"
-            );
+            var view = {
+              feedTitle: item.title.$t,
+              videoURL: "http://www.youtube.com/watch?v="+ videoID,
+              embedURL: "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent"
+            };
+            var html = Mustache.render(template, view);
+            $("#posts").append(html, view);
           });
         });
       }
@@ -237,30 +272,6 @@
       <div id="sidebar">
         <div id="events">
           <h2>Koncerti</h2>
-          <div class="event">
-            <div class="event-date">
-              <div class="event-date-day">16</div>
-              <div class="event-date-month">MAR</div>
-            </div>
-            <div class="event-title"><a href="http://jamesonuzsauc.lv/">Sv. Patrika dienas ballīte</a></div>
-            <div class="event-location">Dzelzceļa muzejs</div>
-          </div>
-          <div class="event">
-            <div class="event-date">
-              <div class="event-date-day">06</div>
-              <div class="event-date-month">APR</div>
-            </div>
-            <div class="event-title"><a href="http://www.tallinnmusicweek.ee/">Tallin music week</a></div>
-            <div class="event-location">Rockcafe.ee</div>
-          </div>
-          <div class="event">
-            <div class="event-date">
-              <div class="event-date-day">18</div>
-              <div class="event-date-month">MAY</div>
-            </div>
-            <div class="event-title">Raunas pilsētas svētki</div>
-            <div class="event-location">Rauna</div>
-          </div>
         </div>
 
         <div id="ad">
