@@ -91,48 +91,52 @@
       $("ul.nav a[href='"+ window.location.pathname +"']").addClass("active");
 
       // Bands in Town Events
-      var url = "http://api.bandsintown.com/artists/Astro'n'out/events.json?api_version=2.0&app_id=astronout.lv&callback=?";
-      var template = $('#event-template').html();
-      var monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-      $.getJSON(url, function(data) {
-        $.each(data, function(i, event) {
-          var date = new Date(event.datetime);
-          var day = date.getUTCDay();
-          if (day < 10) day = "0" + day;
-          var view = {
-            day: day,
-            month: monthNames[date.getUTCMonth()],
-            url: event.facebook_rsvp_url,
-            title: event.venue.name,
-            location: [event.venue.city, event.venue.country].join(", ")
-          };
-          var html = Mustache.render(template, view);
-          $("#events").append(html);
-        });
-      });
-
-      // YouTube Videos
-      if (window.location.pathname == "/videos") {
-        var videoUploadsURL = 'http://gdata.youtube.com/feeds/base/users/astronoutTV/uploads?alt=json&v=2&orderby=published&callback=?';
-        var template = $('#video-template').html();
-        $.getJSON(videoUploadsURL, function(data) {
-          $("#posts .body").remove();
-          var items = data.feed.entry;
-          $.each(data.feed.entry, function(i, item) {
-            var item = items[i];
-            var feedURL = item.link[1].href;
-            var fragments = feedURL.split("/");
-            var videoID = fragments[fragments.length - 1].replace("?v=2", "");
+      (function() {
+        var url = "http://api.bandsintown.com/artists/Astro'n'out/events.json?api_version=2.0&app_id=astronout.lv&callback=?";
+        var template = $('#event-template').html();
+        var monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        $.getJSON(url, function(data) {
+          $.each(data, function(i, event) {
+            var date = new Date(event.datetime);
+            var day = date.getUTCDay();
+            if (day < 10) day = "0" + day;
             var view = {
-              feedTitle: item.title.$t,
-              videoURL: "http://www.youtube.com/watch?v="+ videoID,
-              embedURL: "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent"
+              day: day,
+              month: monthNames[date.getUTCMonth()],
+              url: event.facebook_rsvp_url,
+              title: event.venue.name,
+              location: [event.venue.city, event.venue.country].join(", ")
             };
             var html = Mustache.render(template, view);
-            $("#posts").append(html, view);
+            $("#events").append(html);
           });
         });
-      }
+      })();
+
+      // YouTube Videos
+      (function() {
+        if (window.location.pathname == "/videos") {
+          var url = 'http://gdata.youtube.com/feeds/base/users/astronoutTV/uploads?alt=json&v=2&orderby=published&callback=?';
+          var template = $('#video-template').html();
+          $.getJSON(url, function(data) {
+            $("#posts .body").remove();
+            var items = data.feed.entry;
+            $.each(data.feed.entry, function(i, item) {
+              var item = items[i];
+              var feedURL = item.link[1].href;
+              var fragments = feedURL.split("/");
+              var videoID = fragments[fragments.length - 1].replace("?v=2", "");
+              var view = {
+                feedTitle: item.title.$t,
+                videoURL: "http://www.youtube.com/watch?v="+ videoID,
+                embedURL: "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent"
+              };
+              var html = Mustache.render(template, view);
+              $("#posts").append(html, view);
+            });
+          });
+        }
+      })();
     });
   </script>
 </head>
