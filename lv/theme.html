@@ -98,7 +98,7 @@
         $.getJSON(url, function(data) {
           $.each(data, function(i, event) {
             var date = new Date(event.datetime);
-            var day = date.getUTCDay();
+            var day = date.getUTCDate();
             if (day < 10) day = "0" + day;
             var view = {
               day: day,
