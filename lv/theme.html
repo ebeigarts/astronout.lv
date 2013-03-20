@@ -170,29 +170,25 @@
           var url = "http://graph.facebook.com/astronout/albums?callback=?";
           $.getJSON(url, function(data) {
             $("#posts .body").remove();
-            $.each(data.data, function(i, album) {
+            var albums = data.data;
+            // Sort albums by created_time in reverse
+            albums = albums.sort(function(a, b) {
+              return a.created_time > b.created_time ? -1 : 1;
+            });
+            $.each(albums, function(i, album) {
               if (album.name != "Cover Photos" &&
                   album.name != "Profile Pictures" &&
                   album.name != "Timeline Photos" &&
                   album.name != "Wall Photos")
               {
-                var url = "http://graph.facebook.com/" + album.id + "/photos?callback=?";
-                $.getJSON(url, function(data) {
-                  if (data.data.length > 1) {
-                    $.each(data.data, function(i, photo) {
-                      if (i == 0) {
-                        var view = {
-                          title: album.name,
-                          url:   album.link,
-                          count: album.count,
-                          cover_photo_url: photo.source
-                        };
-                        var html = Mustache.render(template, view);
-                        $("#posts").append(html);
-                      }
-                    });
-                  }
-                });
+                var view = {
+                  title: album.name,
+                  url:   album.link,
+                  count: album.count,
+                  cover_photo_url: 'http://graph.facebook.com/'+ album.cover_photo + '/picture?type=normal'
+                };
+                var html = Mustache.render(template, view);
+                $("#posts").append(html);
               }
             });
           });
