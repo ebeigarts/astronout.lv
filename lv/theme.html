@@ -55,10 +55,17 @@
     /* #content > #sidebar > #ad */
     #ad { background: rgba(255,255,255,0.12); margin-bottom: 30px }
     /* #footer */
-    #footer { background: #1E2020; }
-    #search { padding: 20px; }
-    #contacts { padding: 20px; }
-    #copyright { padding: 20px; }
+    #footer { background: #1E2020; padding: 20px 0; }
+    #footer p { margin: 0; }
+    #search { padding: 10px; float: right }
+    #contacts { padding: 10px; }
+    #copyright { padding: 10px; }
+    /* /music */
+    ol { list-style: none; margin: 0; padding: 0; overflow: hidden; }
+    ol li { padding-top: 20px; clear: both; overflow: hidden }
+    ol li:first-child { padding-top: 0; }
+    ol li img { float: left; margin-right: 30px; }
+    ol li strong { font-size: 24px; font-weight: normal; }
   </style>
   <style type="text/css">{CustomCSS}</style>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -76,25 +83,43 @@
   <script id="video-template" type="text/html">
     <div class="post">
       <div class="title">
-        <a href="[[videoURL]]">[[feedTitle]]</a>
+        <a href="[[url]]">[[title]]</a>
       </div>
       <div class="body">
-        <iframe width="500" height="281" src="[[embedURL]]" frameborder="0" allowfullscreen></iframe>
+        <iframe width="500" height="281" src="[[embed_url]]" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
   </script>
+  <script id="album-template" type="text/html">
+    <div class="post">
+      <div class="title">
+        <a href="[[url]]">[[title]]</a>
+      </div>
+      <div class="body">
+        <a href="[[url]]">
+          <img src="[[cover_photo_url]]" alt=" " />
+        </a>
+      </a>
+    </div>
+  </script>
   <script type="text/javascript">
+    Mustache.tags = ["[[", "]]"]; // tumblr doesnt like mustaches :)
+
     $(function() {
-      Mustache.tags = ["[[", "]]"]; // tumblr doesnt like mustaches :)
 
       // Select Active nav item
       $("ul.nav a[href='"+ window.location.pathname +"']").addClass("active");
 
+      // /music
+      if (window.location.pathname == "/music") {
+        $("#ad").hide();
+      }
+
       // Bands in Town Events
       (function() {
-        var url = "http://api.bandsintown.com/artists/Astro'n'out/events.json?api_version=2.0&app_id=astronout.lv&callback=?";
         var template = $('#event-template').html();
         var monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        var url = "http://api.bandsintown.com/artists/Astro'n'out/events.json?api_version=2.0&app_id=astronout.lv&callback=?";
         $.getJSON(url, function(data) {
           $.each(data, function(i, event) {
             var date = new Date(event.datetime);
@@ -116,8 +141,8 @@
       // YouTube Videos
       (function() {
         if (window.location.pathname == "/videos") {
-          var url = 'http://gdata.youtube.com/feeds/base/users/astronoutTV/uploads?alt=json&v=2&orderby=published&callback=?';
           var template = $('#video-template').html();
+          var url = 'http://gdata.youtube.com/feeds/base/users/astronoutTV/uploads?alt=json&v=2&orderby=published&callback=?';
           $.getJSON(url, function(data) {
             $("#posts .body").remove();
             var items = data.feed.entry;
@@ -127,9 +152,9 @@
               var fragments = feedURL.split("/");
               var videoID = fragments[fragments.length - 1].replace("?v=2", "");
               var view = {
-                feedTitle: item.title.$t,
-                videoURL: "http://www.youtube.com/watch?v="+ videoID,
-                embedURL: "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent"
+                title: item.title.$t,
+                url: "http://www.youtube.com/watch?v="+ videoID,
+                embed_url: "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent"
               };
               var html = Mustache.render(template, view);
               $("#posts").append(html);
@@ -137,6 +162,54 @@
           });
         }
       })();
+
+      // Facebook photo albums
+      (function() {
+        if (window.location.pathname == "/pictures") {
+          var template = $('#album-template').html();
+          var url = "http://graph.facebook.com/astronout/albums?callback=?";
+          $.getJSON(url, function(data) {
+            $("#posts .body").remove();
+            $.each(data.data, function(i, album) {
+              if (album.name != "Cover Photos" &&
+                  album.name != "Profile Pictures" &&
+                  album.name != "Timeline Photos" &&
+                  album.name != "Wall Photos")
+              {
+                var url = "http://graph.facebook.com/" + album.id + "/photos?callback=?";
+                $.getJSON(url, function(data) {
+                  if (data.data.length > 1) {
+                    $.each(data.data, function(i, photo) {
+                      if (i == 0) {
+                        var view = {
+                          title: album.name,
+                          url:   album.link,
+                          count: album.count,
+                          cover_photo_url: photo.source
+                        };
+                        var html = Mustache.render(template, view);
+                        $("#posts").append(html);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          });
+        }
+      })();
+
+      // Google Analytics
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22328248-1']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
     });
   </script>
 </head>
@@ -282,7 +355,7 @@
 
         <div id="ad">
           <a href="https://itunes.apple.com/lv/album/lauvas/id606983943">
-            <img src="http://sphotos-g.ak.fbcdn.net/hphotos-ak-ash4/602405_511048738907144_251058236_n.jpg" alt="Astro'n'out - Lauvas" />
+            <img src="http://static.tumblr.com/qtngqf7/owbmjz747/lauvas.jpg" alt="Astro'n'out - Lauvas" />
           </a>
         </div>
       </div>
