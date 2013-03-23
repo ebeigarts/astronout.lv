@@ -29,6 +29,9 @@
     ul.nav li { display: block; float: left; list-style: none; margin: 0; padding: 0; }
     ul.nav a { display: block; float: left; font-size: 18px; font-weight: 600; padding: 16px 20px; text-transform: uppercase; }
     ul.nav a.active { color: #fff; }
+    /* .nav-bar-fixed */
+    body.nav-bar-fixed #nav-bar { position: fixed; top: 0; left: 0; right: 0; margin-top: 0; }
+    body.nav-bar-fixed #content { margin-top: 444px; }
     /* #content */
     h2 { padding: 20px; margin: 0; line-height: 1.2; font-weight: normal; font-size: 24px }
     img { max-width: 100%; }
@@ -109,6 +112,15 @@
 
       // Select Active nav item
       $("ul.nav a[href='"+ window.location.pathname +"']").addClass("active");
+
+      // Fixed nav on scroll
+      $(window).on('scroll', function() {
+        if ($(document.body).scrollTop() > 364) {
+          $(document.body).addClass("nav-bar-fixed");
+        } else {
+          $(document.body).removeClass("nav-bar-fixed");
+        }
+      });
 
       // /music
       if (window.location.pathname == "/music") {
