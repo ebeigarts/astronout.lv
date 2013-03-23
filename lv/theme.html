@@ -12,7 +12,7 @@
     html, body { margin: 0; padding: 0; }
     body { font: 14px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/eT2mjtc0f/bg.jpg') no-repeat center top; min-width: 980px; }
     a { color: #74BBA7; text-decoration: none; }
-    a.button { background: #74BBA7; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
+    a.button { background: #74BBA7; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
     a.button:hover { background: #89e5cb; }
     .container { width: 920px; margin: 0 auto; overflow: hidden; }
     .pull-right { float: right; }
@@ -27,8 +27,9 @@
     #nav-bar a.title { float: left; font-size: 16px; color: #fff; padding: 8px 20px; }
     ul.nav { float: right; margin: 0; padding: 0; }
     ul.nav li { display: block; float: left; list-style: none; margin: 0; padding: 0; }
-    ul.nav a { display: block; float: left; font-size: 18px; font-weight: 600; padding: 16px 20px; text-transform: uppercase; }
+    ul.nav a { display: block; float: left; font-size: 18px; font-weight: 600; padding: 16px 20px; text-transform: uppercase; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
     ul.nav a.active { color: #fff; }
+    ul.nav a:hover { color: #fff; }
     /* .nav-bar-fixed */
     body.nav-bar-fixed #nav-bar { position: fixed; top: 0; left: 0; right: 0; margin-top: 0; }
     body.nav-bar-fixed #content { margin-top: 444px; }
