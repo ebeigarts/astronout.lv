@@ -22,7 +22,7 @@
     .container { width: 920px; margin: 0 auto; overflow: hidden; }
     .pull-right { float: right; }
     /* #top-bar */
-    #top-bar { background: #000; overflow: hidden; }
+    #top-bar { background: #000; overflow: hidden; height: 34px; }
     #social { float: right; padding-right: 15px }
     #social iframe { float: left; border:none; margin: 7px; width: 120px; height: 20px; }
     #social a { display: block; float: left; margin: 7px; height: 20px; overflow: hidden; opacity: 0.9; }
@@ -52,6 +52,8 @@
     .post .title { font-size: 24px; line-height: 1.2; margin: 0; }
     .post .title p { margin: 0; }
     .post .body { margin-top: 20px; }
+    #posts-nav { padding: 20px; border-top: 2px solid #000; }
+    #posts-nav .current-page { background: #fff; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
     /* #content > #sidebar */
     #sidebar { float: left; width: 350px; margin: 30px 0; }
     /* #content > #sidebar > #events */
@@ -204,23 +206,23 @@
         {/block:Posts}
 
         {block:Pagination}
-          <div id="navigation" {block:IfEnableJumpPagination}class="jump_pagination"{/block:IfEnableJumpPagination}>
-            {block:PreviousPage}<a href="{PreviousPage}">&larr; {lang:Previous}</a>{/block:PreviousPage}
+          <div id="posts-nav" {block:IfEnableJumpPagination}class="jump-pagination"{/block:IfEnableJumpPagination}>
+            {block:PreviousPage}<a href="{PreviousPage}" class="button">&larr; {lang:Previous}</a>{/block:PreviousPage}
 
             {block:IfEnableJumpPagination}
               {block:JumpPagination length="5"}
                 {block:CurrentPage}
-                  <span class="current_page">{PageNumber}</span>
+                  <span class="current-page">{PageNumber}</span>
                 {/block:CurrentPage}
 
                 {block:JumpPage}
-                  <a class="jump_page" href="{URL}">{PageNumber}</a>
+                  <a class="jump-page" href="{URL}" class="button">{PageNumber}</a>
                 {/block:JumpPage}
 
               {/block:JumpPagination}
             {/block:IfEnableJumpPagination}
 
-            {block:NextPage}<a href="{NextPage}">{lang:Next page} &rarr;</a>{/block:NextPage}
+            {block:NextPage}<a href="{NextPage}" class="button">{lang:Next page} &rarr;</a>{/block:NextPage}
           </div>
         {/block:Pagination}
       </div>
@@ -325,13 +327,29 @@
 
       // Select Active nav item
       $("ul.nav a[href='"+ window.location.pathname +"']").addClass("active");
+      $("ul.nav a[href^='"+ window.location.pathname +"#']").addClass("active");
 
       // Fixed nav on scroll
+      window.navBarFixed = false;
       $(window).on('scroll', function() {
-        if ($(document.body).scrollTop() > 364) {
+        if ($(document.body).scrollTop() > 363) {
+          if (navBarFixed) return;
+          window.navBarFixed = true;
           $(document.body).addClass("nav-bar-fixed");
+          $("ul.nav a").each(function() {
+            var link = $(this);
+            if (link.attr("href").indexOf('#') == -1) {
+              link.attr("href", link.attr("href") + '#nav-bar');
+            }
+          });
         } else {
+          if (!navBarFixed) return;
+          window.navBarFixed = false;
           $(document.body).removeClass("nav-bar-fixed");
+          $("ul.nav a").each(function() {
+            var link = $(this);
+            link.attr("href", link.attr("href").replace(/#nav-bar/, ''));
+          });
         }
       });
 
