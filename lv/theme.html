@@ -9,11 +9,15 @@
   <link rel="alternate" type="application/rss+xml" href="{RSS}" />
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css" />
   <style type="text/css">
+    /* reset */
     html, body { margin: 0; padding: 0; }
+    a img { border: none; }
+    /* main */
     body { font: 14px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/eT2mjtc0f/bg.jpg') no-repeat center top; min-width: 980px; }
     a { color: #74BBA7; text-decoration: none; }
     a.button { background: #74BBA7; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
-    a.button:hover { background: #89e5cb; }
+    a.button:hover { background: #74BBA7; }
+    input[type="submit"] { background: #89e5cb; color: #000; padding: 3px 5px; font-weight: bold; border: none; -webkit-appearance: none; }
     .container { width: 920px; margin: 0 auto; overflow: hidden; }
     .pull-right { float: right; }
     /* #top-bar */
@@ -327,12 +331,13 @@
         var url = "http://api.bandsintown.com/artists/Astro'n'out/events.json?api_version=2.0&app_id=astronout.lv&callback=?";
         $.getJSON(url, function(data) {
           $.each(data, function(i, event) {
-            var date = new Date(event.datetime);
-            var day = date.getUTCDate();
+            var matches = event.datetime.match(/^(\d+)-(\d+)-(\d+)/);
+            var day = parseInt(matches[3], 10);
+            var month = parseInt(matches[2], 10);
             if (day < 10) day = "0" + day;
             var view = {
               day: day,
-              month: monthNames[date.getUTCMonth()],
+              month: monthNames[month],
               url: event.facebook_rsvp_url,
               title: event.venue.name,
               location: [event.venue.city, event.venue.country].join(", ")
