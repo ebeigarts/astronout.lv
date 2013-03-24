@@ -112,7 +112,7 @@
         <li><a href="/"{block:IndexPage} class="active"{/block:IndexPage}>Jaunumi</a></li>
         {block:HasPages}
           {block:Pages}
-            <li><a href="{URL}#nav-bar">{Label}</a></li>
+            <li><a href="{URL}">{Label}</a></li>
           {/block:Pages}
         {/block:HasPages}
         <li><a href="#contacts">Kontakti</a></li>
@@ -353,7 +353,7 @@
             if (day < 10) day = "0" + day;
             var view = {
               day: day,
-              month: monthNames[month],
+              month: monthNames[month-1],
               url: event.facebook_rsvp_url,
               title: event.venue.name,
               location: [event.venue.city, event.venue.country].join(", ")
