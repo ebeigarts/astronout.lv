@@ -13,7 +13,7 @@
     html, body { margin: 0; padding: 0; }
     a img { border: none; }
     /* main */
-    body { font: 14px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/eT2mjtc0f/bg.jpg') no-repeat center top; min-width: 980px; }
+    body { font: 16px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/eT2mjtc0f/bg.jpg') no-repeat center top; min-width: 980px; }
     a { color: #74BBA7; text-decoration: none; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
     a:hover { color: #fff; }
     a.button { background: #74BBA7; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
@@ -46,7 +46,7 @@
     #posts { float: right; width: 540px; background: #111; background: rgba(255,255,255,0.12); margin: 30px 0; }
     #posts-header { overflow: hidden; }
     #posts-header h2 { float: left; }
-    #posts-header .button { float: right; margin: 14px 20px 0 0; }
+    #posts-header .button { float: right; margin: 16px 20px 0 0; }
     .post { padding: 20px; border-top: 2px solid #000; }
     .post:first-child { border-top: none; }
     .post .title { font-size: 24px; line-height: 1.2; margin: 0; }
@@ -332,7 +332,7 @@
       // Fixed nav on scroll
       window.navBarFixed = false;
       $(window).on('scroll', function() {
-        if ($(document.body).scrollTop() > 363) {
+        if ($(window).scrollTop() > 363) {
           if (navBarFixed) return;
           window.navBarFixed = true;
           $(document.body).addClass("nav-bar-fixed");
