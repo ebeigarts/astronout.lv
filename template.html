@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="lv">
+<html lang="{{locale}}">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>{Title}{block:SearchPage}, {lang:Search results for SearchQuery}{/block:SearchPage}{block:PostSummary}, {PostSummary}{/block:PostSummary}</title>
@@ -112,13 +112,13 @@
         <img src="http://static.tumblr.com/qtngqf7/msQmjtc0r/logo.png" alt="Astro'n'out" />
       </a>
       <ul class="nav">
-        <li><a href="/"{block:IndexPage} class="active"{/block:IndexPage}>Jaunumi</a></li>
+        <li><a href="/"{block:IndexPage} class="active"{/block:IndexPage}>{{news}}</a></li>
         {block:HasPages}
           {block:Pages}
             <li><a href="{URL}">{Label}</a></li>
           {/block:Pages}
         {/block:HasPages}
-        <li><a href="#contacts">Kontakti</a></li>
+        <li><a href="#contacts">{{contacts}}</a></li>
       </ul>
     </div>
   </div>
@@ -128,8 +128,8 @@
       <div id="posts">
         {block:IndexPage}
           <div id="posts-header">
-            <h2>Jaunumi</h2>
-            <a href="http://eepurl.com/oLQmP" class="button">Pieteikties jaunumiem e-pastā</a>
+            <h2>{{news}}</h2>
+            <a href="http://eepurl.com/oLQmP" class="button">{{subscribe_newsletter}}</a>
           </div>
         {/block:IndexPage}
 
@@ -230,7 +230,7 @@
 
       <div id="sidebar">
         <div id="events">
-          <h2>Koncerti</h2>
+          <h2>{{events}}</h2>
         </div>
 
         <div id="ad">
@@ -239,13 +239,13 @@
           </a>
         </div>
 
-        
+        {% if locale == 'lv' %}
         <div id="ad-store">
           <a href="https://www.ekase.lv/lv/suveniri/astro-n-out/">
             <img src="http://static.tumblr.com/qtngqf7/6O3mk41u0/astro-veikals.jpg" alt="Astro Veikals" />
           </a>
         </div>
-        
+        {% endif %}
       </div>
     </div>
   </div>
@@ -262,7 +262,7 @@
         </form>
       </div>
       <div id="contacts">
-        <h3>Kontakti</h3>
+        <h3>{{contacts}}</h3>
         <p>
           <a href="mailto:info@astronout.lv">info@astronout.lv</a>
           <br/>
