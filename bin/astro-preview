@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+
+get '/*' do
+  path = File.join(File.dirname(__FILE__), '..', *params[:splat])
+  if path =~ /.html$/
+    load File.join(File.dirname(__FILE__), 'astro-compile')
+    File.read(path).gsub(/\{\/?[a-z\:]+[^\}]*\}/i, '')
+  else
+    File.read(path)
+  end
+end

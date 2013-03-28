@@ -23,9 +23,13 @@
     .pull-right { float: right; }
     /* #top-bar */
     #top-bar { background: #000; overflow: hidden; height: 34px; }
-    #social { float: right; padding-right: 15px }
+    #locales { float: left; padding-left: 20px; }
+    #locales a { font-size: 14px; display: inline-block; margin: 7px 0; }
+    #locales a.active { color: #fff; }
+    #locales .sep { color: #555; }
+    #social { float: right; padding-right: 20px }
     #social iframe { float: left; border:none; margin: 7px; width: 120px; height: 20px; }
-    #social a { display: block; float: left; margin: 7px; height: 20px; overflow: hidden; opacity: 0.9; }
+    #social a { display: block; float: left; margin: 7px 0 7px 14px; height: 20px; overflow: hidden; opacity: 0.9; }
     #social a:hover { opacity: 1.0; }
     #tumblr_controls { top: 34px !important; }
     /* #nav-bar */
@@ -88,6 +92,11 @@
 <body>
   <div id="top-bar">
     <div class="container">
+      <div id="locales">
+        <a href="http://astronout.lv/" class="active">Latviski</a>
+        <span class="sep">|</span>
+        <a href="http://en.astronout.lv/">English</a>
+      </div>
       <div id="social">
         <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fastronout.lv%2F&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=dark&amp;font=arial&amp;height=21&amp;appId=348126495249042" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
         <a href="http://www.facebook.com/astronout" target="_blank">
@@ -239,13 +248,13 @@
           </a>
         </div>
 
-        
         <div id="ad-store">
-          <a href="https://www.ekase.lv/lv/suveniri/astro-n-out/">
-            <img src="http://static.tumblr.com/qtngqf7/6O3mk41u0/astro-veikals.jpg" alt="Astro Veikals" />
-          </a>
+          
+            <a href="https://www.ekase.lv/lv/suveniri/astro-n-out/">
+              <img src="http://static.tumblr.com/qtngqf7/6O3mk41u0/astro-veikals.jpg" alt="Astro Veikals" />
+            </a>
+          
         </div>
-        
       </div>
     </div>
   </div>
@@ -307,7 +316,7 @@
         <a href="[[url]]">[[title]]</a>
       </div>
       <div class="body">
-        <iframe width="500" height="281" src="[[embed_url]]" frameborder="0" allowfullscreen></iframe>
+        <iframe width="500" height="281" src="[[embed_url]]" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
   </script>
@@ -385,6 +394,7 @@
         });
       })();
 
+      
       // YouTube Videos
       (function() {
         if (window.location.pathname == "/videos") {
@@ -409,6 +419,9 @@
           });
         }
       })();
+      
+
+      
 
       // Facebook photo albums
       (function() {
