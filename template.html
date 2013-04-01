@@ -108,9 +108,16 @@
         <a href="http://muzika.draugiem.lv/astronout" target="_blank">
           <img src="http://static.tumblr.com/qtngqf7/idomk43aw/icon-draugiem.png" alt="Draugiem" title="Draugiem" height="20" />
         </a>
+        {% if locale == 'lv' %}
         <a href="http://www.youtube.com/user/astronoutTV" target="_blank">
           <img src="http://static.tumblr.com/qtngqf7/4R0mk43af/icon-youtube.png" alt="YouTube" title="YouTube" height="20" />
         </a>
+        {% endif %}
+        {% if locale == 'en' %}
+        <a href="http://vimeo.com/astronout" target="_blank">
+          <img src="http://static.tumblr.com/qtngqf7/RFdmkl8op/icon-vimeo.png" alt="Vimeo" title="Vimeo" height="20" />
+        </a>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -138,7 +145,7 @@
         {block:IndexPage}
           <div id="posts-header">
             <h2>{{news}}</h2>
-            <a href="http://eepurl.com/oLQmP" class="button">{{subscribe_newsletter}}</a>
+            <a href="{{subscribe_newsletter_url}}" class="button">{{subscribe_newsletter}}</a>
           </div>
         {/block:IndexPage}
 
@@ -291,9 +298,16 @@
           <a href="http://muzika.draugiem.lv/astronout" target="_blank">
             <img src="http://static.tumblr.com/qtngqf7/idomk43aw/icon-draugiem.png" alt="Draugiem" title="Draugiem" height="20" />
           </a>
+          {% if locale == 'lv' %}
           <a href="http://www.youtube.com/user/astronoutTV" target="_blank">
             <img src="http://static.tumblr.com/qtngqf7/4R0mk43af/icon-youtube.png" alt="YouTube" title="YouTube" height="20" />
           </a>
+          {% endif %}
+          {% if locale == 'en' %}
+          <a href="http://vimeo.com/astronout" target="_blank">
+            <img src="http://static.tumblr.com/qtngqf7/RFdmkl8op/icon-vimeo.png" alt="Vimeo" title="Vimeo" height="20" />
+          </a>
+          {% endif %}
         </p>
       </div>
       <div id="copyright">
