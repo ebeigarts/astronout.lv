@@ -414,7 +414,7 @@
               var view = {
                 title: item.title,
                 url: item.url,
-                embed_url: "http://player.vimeo.com/video/"+ item.id
+                embed_url: "http://player.vimeo.com/video/"+ item.id + "?title=0&byline=0&portrait=0&color=74BBA7"
               };
               var html = Mustache.render(template, view);
               $("#posts").append(html);

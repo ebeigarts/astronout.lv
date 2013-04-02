@@ -422,14 +422,11 @@
             $("#posts .body").remove();
             var items = data.feed.entry;
             $.each(data.feed.entry, function(i, item) {
-              var item = items[i];
-              var feedURL = item.link[1].href;
-              var fragments = feedURL.split("/");
-              var videoID = fragments[fragments.length - 1].replace("?v=2", "");
+              var id = item.id.$t.replace(/.*video:/, '');
               var view = {
                 title: item.title.$t,
-                url: "http://www.youtube.com/watch?v="+ videoID,
-                embed_url: "http://www.youtube.com/embed/"+ videoID +"?wmode=transparent"
+                url: "http://www.youtube.com/watch?v="+ id,
+                embed_url: "http://www.youtube.com/embed/"+ id +"?wmode=transparent&iv_load_policy=3&modestbranding=1&showinfo=0"
               };
               var html = Mustache.render(template, view);
               $("#posts").append(html);
@@ -451,7 +448,7 @@
               var view = {
                 title: item.title,
                 url: item.url,
-                embed_url: "http://player.vimeo.com/video/"+ item.id
+                embed_url: "http://player.vimeo.com/video/"+ item.id + "?title=0&byline=0&portrait=0&color=74BBA7"
               };
               var html = Mustache.render(template, view);
               $("#posts").append(html);
