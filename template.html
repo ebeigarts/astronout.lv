@@ -13,12 +13,15 @@
     html, body { margin: 0; padding: 0; }
     a img { border: none; }
     /* main */
-    body { font: 16px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/eT2mjtc0f/bg.jpg') no-repeat center top; min-width: 980px; }
-    a { color: #74BBA7; text-decoration: none; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
+    body { font: 16px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/LCxmyw1fr/bg.jpg') no-repeat center 35px; min-width: 980px; }
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
+      body { background-image: url('http://static.tumblr.com/qtngqf7/R4dmyw2cf/bg_2x.jpg'); background-size: 1920px 551px; }
+    }
+    a { color: #AD3E6C; text-decoration: none; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
     a:hover { color: #fff; }
-    a.button { background: #74BBA7; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
-    a.button:hover { background: #89e5cb; }
-    input[type="submit"] { background: #74BBA7; color: #000; padding: 3px 5px; font-weight: bold; border: none; -webkit-appearance: none; }
+    a.button { background: #AD3E6C; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
+    a.button:hover { background: #AD326A; }
+    input[type="submit"] { background: #AD3E6C; color: #000; padding: 3px 5px; font-weight: bold; border: none; -webkit-appearance: none; }
     .container { width: 920px; margin: 0 auto; overflow: hidden; }
     .pull-right { float: right; }
     /* #top-bar */
@@ -268,9 +271,15 @@
         </div>
 
         <div id="ad">
-          <a href="https://itunes.apple.com/lv/album/lauvas/id606983943">
-            <img src="http://static.tumblr.com/qtngqf7/owbmjz747/lauvas.jpg" alt="Astro'n'out - Lauvas" />
-          </a>
+          {% if locale == 'lv' %}
+            <a href="https://itunes.apple.com/lv/album/lauvas/id606983943">
+              <img src="http://static.tumblr.com/qtngqf7/owbmjz747/lauvas.jpg" alt="Astro'n'out - Lauvas" />
+            </a>
+          {% elsif locale == 'en' %}
+            <a href="https://itunes.apple.com/lv/album/lions-share/id724917334">
+              <img src="http://static.tumblr.com/qtngqf7/zU2myw2ut/lions-share.jpg" alt="Astro'n'out - Lauvas" />
+            </a>
+          {% endif %}
         </div>
 
         <div id="ad-store">
