@@ -267,11 +267,9 @@
         </div>
 
         <div id="ad">
-          
-            <a href="https://itunes.apple.com/lv/album/lauvas/id606983943">
-              <img src="http://static.tumblr.com/qtngqf7/owbmjz747/lauvas.jpg" alt="Astro'n'out - Lauvas" />
-            </a>
-          
+          <a href="https://itunes.apple.com/lv/album/lions-share/id724917334">
+            <img src="http://static.tumblr.com/qtngqf7/zU2myw2ut/lions-share.jpg" alt="Astro'n'out - Lauvas" />
+          </a>
         </div>
 
         <div id="ad-store">
@@ -429,11 +427,26 @@
         if (window.location.pathname == "/videos") {
           var template = $('#video-template').html();
           var url = 'http://gdata.youtube.com/feeds/base/users/astronoutTV/uploads?alt=json&v=2&orderby=published&callback=?';
+          var blacklistedIds = [
+            "7X__urFUjU8",
+            "wDGr-m9DCa8",
+            "2bOC2KcZY0s",
+            "XIErZrb_khM",
+            "wr1RDoqWzOE",
+            "5D4UnY5_P3k",
+            "oUEFiXG0PVs",
+            "8TcXLjTtcyc",
+            "eeGdY4R-PVE",
+            "H8XyhFigOUs"
+          ];
           $.getJSON(url, function(data) {
             $("#posts .body").remove();
             var items = data.feed.entry;
             $.each(data.feed.entry, function(i, item) {
               var id = item.id.$t.replace(/.*video:/, '');
+              if ($.inArray(id, blacklistedIds) != -1) {
+                return;
+              }
               var view = {
                 title: item.title.$t,
                 url: "http://www.youtube.com/watch?v="+ id,
