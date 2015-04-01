@@ -13,21 +13,22 @@
     html, body { margin: 0; padding: 0; }
     a img { border: none; }
     /* main */
-    body { font: 16px/1.5 "Open Sans", "Arial", sans-serif; color: #fff; background: #000 url('http://static.tumblr.com/qtngqf7/TrRnm5bqo/bg.jpg') no-repeat center 35px; min-width: 980px; }
+    body { font: 16px/1.5 "Open Sans", "Arial", sans-serif; color: #333; background: #dddad2 url('http://static.tumblr.com/qtngqf7/c8ynm5eq3/bg.jpg') no-repeat center 0; min-width: 980px; }
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
-      body { background-image: url('http://static.tumblr.com/qtngqf7/2pPnm5bro/bg_2x.jpg'); background-size: 1680px 551px; }
+      body { background-image: url('http://static.tumblr.com/qtngqf7/thfnm5esr/bg_2x.jpg'); background-size: 1680px 551px; }
     }
-    a { color: #64c0c0; text-decoration: none; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
-    a:hover { color: #fff; }
+    a { color: #37ada3; text-decoration: none; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
+    a:hover { color: #c74637; }
     a.button { background: #64c0c0; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
-    a.button:hover { background: #AD326A; }
+    a.button:hover { background: #c74637; }
     input[type="submit"] { background: #64c0c0; color: #000; padding: 3px 5px; font-weight: bold; border: none; -webkit-appearance: none; }
     .container { width: 920px; margin: 0 auto; overflow: hidden; }
     .pull-right { float: right; }
     /* #top-bar */
-    #top-bar { background: #000; overflow: hidden; height: 34px; }
+    #top-bar { background: rgba(0,0,0,0.3); overflow: hidden; height: 34px; }
     #locales { float: left; padding-left: 20px; }
-    #locales a { font-size: 14px; display: inline-block; margin: 7px 0; }
+    #locales a { font-size: 14px; display: inline-block; margin: 7px 0; color: #59dcd3; }
+    #locales a:hover { color: #c74637; }
     #locales a.active { color: #fff; }
     #locales .sep { color: #555; }
     #social { float: right; padding-right: 20px }
@@ -36,7 +37,7 @@
     #social a:hover { opacity: 1.0; }
     #tumblr_controls { top: 34px !important; }
     /* #nav-bar */
-    #nav-bar { background: #000; padding: 25px 0; margin-top: 330px; }
+    #nav-bar { background: rgba(0,0,0,0.7); padding: 25px 0; margin-top: 405px; }
     #nav-bar a.title { float: left; font-size: 16px; color: #fff; padding: 8px 20px; }
     ul.nav { float: right; margin: 0; padding: 0; }
     ul.nav li { display: block; float: left; list-style: none; margin: 0; padding: 0; }
@@ -45,27 +46,27 @@
     ul.nav a:hover { color: #fff; }
     /* .nav-bar-fixed */
     body.nav-bar-fixed #nav-bar { position: fixed; top: 0; left: 0; right: 0; margin-top: 0; }
-    body.nav-bar-fixed #content { margin-top: 444px; }
+    body.nav-bar-fixed #content { margin-top: 519px; }
     /* #content */
     h2 { padding: 20px; margin: 0; line-height: 1.2; font-weight: normal; font-size: 24px }
     img { max-width: 100%; }
     /* #content > #posts */
-    #posts { float: right; width: 540px; background: #111; background: rgba(255,255,255,0.12); margin: 30px 0; }
+    #posts { float: right; width: 540px; background: #111; background: rgba(0,0,0,0.04); margin: 30px 0; }
     #posts-header { overflow: hidden; }
     #posts-header h2 { float: left; }
     #posts-header .button { float: right; margin: 16px 20px 0 0; }
-    .post { padding: 20px; border-top: 2px solid #000; }
+    .post { padding: 20px; border-top: 2px solid #dddad2; }
     .post:first-child { border-top: none; }
     .post .title { font-size: 24px; line-height: 1.2; margin: 0; }
     .post .title p { margin: 0; }
     .post .body { margin-top: 20px; }
-    #posts-nav { padding: 20px; border-top: 2px solid #000; }
+    #posts-nav { padding: 20px; border-top: 2px solid #dddad2; }
     #posts-nav .current-page { background: #fff; color: #000; font-weight: bold; border-radius: 3px; display: inline-block; padding: 8px 15px; }
     /* #content > #sidebar */
     #sidebar { float: left; width: 350px; margin: 30px 0; }
     /* #content > #sidebar > #events */
-    #events { background: #111; background: rgba(255,255,255,0.12); margin-bottom: 30px }
-    .event { padding: 20px; line-height: 1.0; border-top: 2px solid #000; overflow: hidden; }
+    #events { background: #111; background: rgba(0,0,0,0.04); margin-bottom: 30px }
+    .event { padding: 20px; line-height: 1.0; border-top: 2px solid #dddad2; overflow: hidden; }
     .event-date { float: left; text-align: center; width: 40px; }
     .event-date-day { display: block; font-size: 24px; }
     .event-date-month { padding-top: 5px; }
@@ -74,10 +75,12 @@
     /* #content > #sidebar > #ad */
     #ad, #ad-store { margin-bottom: 30px }
     /* #footer */
-    #footer { background: #1E2020; padding: 20px 0; }
+    #footer { background: rgba(0,0,0,0.3); padding: 20px 0; }
     #footer .container { background: url('http://static.tumblr.com/qtngqf7/Lcnmk45a8/logo-footer.png') no-repeat 765px 80px; }
     #footer h3 { font-weight: normal; margin: 10px 20px; }
     #footer p { margin: 10px 20px; }
+    #footer a { color: #59dcd3; }
+    #footer a:hover { color: #c74637; }
     #footer-social { overflow: hidden; }
     #footer-social a { display: block; float: left; margin: 7px 14px 7px 0; height: 20px; overflow: hidden; opacity: 0.9; -webkit-transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; transition: all 0.3s ease-in-out; }
     #foorer-social a:hover { opacity: 1.0; }
@@ -139,7 +142,7 @@
   <div id="nav-bar">
     <div class="container">
       <a href="/" class="title">
-        <img src="http://static.tumblr.com/qtngqf7/msQmjtc0r/logo.png" alt="Astro'n'out" />
+        <img src="http://static.tumblr.com/qtngqf7/b00nm5f09/logo.png" alt="Astro'n'out" />
       </a>
       <ul class="nav">
         <li><a href="/"{block:IndexPage} class="active"{/block:IndexPage}>News</a></li>
@@ -374,7 +377,7 @@
       // Fixed nav on scroll
       window.navBarFixed = false;
       $(window).on('scroll', function() {
-        if ($(window).scrollTop() > 363) {
+        if ($(window).scrollTop() > 438) {
           if (navBarFixed) return;
           window.navBarFixed = true;
           $(document.body).addClass("nav-bar-fixed");
